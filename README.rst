@@ -184,6 +184,14 @@ Push your repository as you would push any other repository.
 
 Don't forget to also push your tags (``git push --tags``).
 
+Dependencies
+------------
+
+Before you can run the git2rst.py script you'll need to install the
+GitPython module, you can do that by:
+
+``pip install GitPython``
+
 
 Generate RST output
 -------------------
@@ -192,6 +200,10 @@ The enclosed git2rst.py script will transform the sequence of commits
 of your tutorial into a RST file, as explained above. Each commit
 will be one section, and the changed files will be shown at the end
 of each section.
+
+The usage of the script is something like this (using our example):
+
+``python git2rst.py helloworld``
 
 It is recommended to add a title and introductory text to the generated
 RST output. If you plan to regenerate the RST content frequently,
