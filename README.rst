@@ -127,6 +127,34 @@ To see what your tutorial looks like, you can run the following command::
   git log --patch --reverse begin..HEAD
 
 
+Automatic inclusion of modified files
+-------------------------------------
+
+If you plan to use the RST generator, it will automatically add
+after each commit the files modified by the commit. If you want
+the files to be included in the middle of a commit, just include
+two dots (nothing else) on a line in the commit. For instance,
+if your commit looks like this::
+
+  Implement Prime Directive
+
+  We will now edit starfleet.cpp to add the relevant methods.
+
+  ..
+
+  Error checking has been left out of this sample, but proper
+  exception handling should be added in production code.
+
+Then the edited files (probably ``starfleet.cpp``) will be
+inserted in lieu of the ".." in the middle.
+
+If at least one commit uses the ".." convention, the modified
+files will no longer be included verbatim at the end of each
+commit. If a git base URL (see below) was specified, the list
+of files (with links) will be included anyway (but without
+the content of the files).
+
+
 Place the end tag
 -----------------
 
@@ -199,11 +227,22 @@ Generate RST output
 The enclosed git2rst.py script will transform the sequence of commits
 of your tutorial into a RST file, as explained above. Each commit
 will be one section, and the changed files will be shown at the end
-of each section.
+of each section (or, if the section contains ".." on a single line,
+".." will be replaced with the changed files).
 
-The usage of the script is something like this (using our example):
+The usage of the script is something like this (using our example)::
 
-``python git2rst.py helloworld``
+  python git2rst.py helloworld
+
+If the code is hosted on GitHub or a similar hosting service,
+you can specify the base URL of the repository; e.g.::
+
+  python git2rst.py helloworld https://github.com/jpetazzo/helloworld
+
+If you specify that URL, the names of the modified files will
+actually be links to the modified files on the GitHub repository.
+This allows easy download of long files which would impair the
+readability of the document if they were included verbatim.
 
 It is recommended to add a title and introductory text to the generated
 RST output. If you plan to regenerate the RST content frequently,
